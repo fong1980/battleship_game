@@ -4,7 +4,9 @@ import {
   Post,
   HttpCode,
   Body,
-  Param
+  Param,
+  NotFoundError,
+  Put
 } from "routing-controllers";
 import Game from "./entity";
 
@@ -16,4 +18,27 @@ export default class gameController {
     return game;
   }
   //http get :4000/games
+
+  @Put("/game/:id")
+  // @HttpCode(200)
+  async editStudent(@Param("id") id: number, @Body() update: Partial<Game>) {
+    const game = await Game.findOne(id);
+    if (!game) throw new NotFoundError("put Student doesn't exist");
+
+    return Game.merge(game, update).save();
+  }
 }
+
+//http put :4000/game/1 ships="henk"
+
+// @Put("/students/:id")
+// // @HttpCode(200)
+// async editStudent(
+//   @Param("id") id: number,
+//   @Body() update: Partial<Students>
+// ) {
+//   const student = await Students.findOne(id);
+//   if (!student) throw new NotFoundError("put Student doesn't exist");
+
+//   return Students.merge(student, update).save();
+// }

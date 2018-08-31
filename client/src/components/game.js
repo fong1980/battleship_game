@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import {
-  shipsEnemyBoard,
+  // shipsEnemyBoard,
   initalstateMyBoard,
   initalstateEnemyBoard
 } from "../logicConstants/logicConstants";
@@ -32,7 +32,7 @@ class Game extends PureComponent {
             return (
               <div className="rows">
                 {row.map((colum, indexX) => {
-                  const ClicktCoordinate = [indexX, indexY];
+                  // const ClicktCoordinate = [indexX, indexY];
                   return (
                     <div className="columsEnemyBoard">
                       {this.state.EnemyBoard[indexY][indexX]}
