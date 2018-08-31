@@ -6,7 +6,6 @@ import User from "./users/entity";
 import Batch from "./batchs/entity";
 import student from "./students/entity";
 import Evaluation from "./evaluations/entity";
-
 import Games from "./games/entity";
 
 class CustomNamingStrategy extends DefaultNamingStrategy
@@ -40,7 +39,7 @@ export default () =>
     url:
       process.env.DATABASE_URL ||
       "postgres://postgres:secret@localhost:5432/postgres",
-    entities: [User, Batch, student, Evaluation], //Player verwijderd
+    entities: [User, Batch, student, Evaluation, Games], //Player verwijderd
     synchronize: true, // careful with this in production!
     logging: true,
     namingStrategy: new CustomNamingStrategy()

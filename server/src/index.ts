@@ -7,6 +7,7 @@ import LoginController from "./logins/controller";
 import batchsController from "./batchs/controller";
 import studentController from "./students/controller";
 import evaluationsController from "./evaluations/controller";
+import gameController from "./games/controller";
 
 //end my stuff
 
@@ -30,7 +31,8 @@ useKoaServer(app, {
     LoginController,
     batchsController,
     studentController,
-    evaluationsController
+    evaluationsController,
+    gameController
   ], //GameController verwijderd
   authorizationChecker: (action: Action) => {
     const header: string = action.request.headers.authorization;
