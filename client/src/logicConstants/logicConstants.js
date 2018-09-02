@@ -29,3 +29,6 @@ export const initalstateEnemyBoard = [
   [[0], [0], [1], [0], [0], [0], [0], [0], [0], [0], [0], [0]],
   [[0], [0], [1], [0], [1], [1], [1], [1], [0], [0], [0], [0]]
 ];
+
+//for backends
+export const baseUrl = "http://localhost:4000";

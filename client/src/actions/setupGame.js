@@ -1,38 +1,41 @@
 import * as request from "superagent";
-// import { baseUrl } from "../constants";
+
 // import { logout } from "./users";
 // import { isExpired } from "../jwt";
+import { baseUrl } from "../logicConstants/logicConstants";
 
-export const SETUP_MY_BOARD = "SETUP_MY_BOARD";
+export const SETUP_BOARD = "SETUP_BOARD";
 
-export const setupMyBoard = initalstateMyBoard => {
-  console.log("is het aangekomen?");
-  return {
-    type: SETUP_MY_BOARD,
-    payload: "test"
-  };
-};
+// export const setupBoard = initalstateMyBoard => {
+//   console.log("is het aangekomen?");
+//   return {
+//     type: SETUP_BOARD,
+//     payload: "test"
+//   };
+// };
 
-// export const getBatchs = () => (dispatch, getState) => {
-//   const state = getState();
-//   if (!state.currentUser) return null;
-//   const jwt = state.currentUser.jwt;
-//   if (isExpired(jwt)) return dispatch(logout());
-
+// export const setupBoard = () => (dispatch, getState) => {
+//   console.log("ben ik er now wel of niet?");
 //   request
-//     .get(`${baseUrl}/batchs`)
+//     // .get(`${baseUrl}/games`)
+//     .get(`${baseUrl}//batchs`)
 //     .then(response =>
 //       dispatch({
-//         type: GET_BATCHS,
+//         type: SETUP_BOARD,
 //         payload: response.body
 //       })
 //     )
 //     .catch(err => alert(err));
 // };
 
-// export const createBatch = newBatch => {
-//   return {
-//     type: CREATE_BATCH,
-//     payload: newBatch
-//   };
-// };
+export const setupBoard = () => (dispatch, getState) => {
+  request
+    .get(`${baseUrl}/batchs`)
+    .then(response =>
+      dispatch({
+        type: SETUP_BOARD,
+        payload: response.body
+      })
+    )
+    .catch(err => alert(err));
+};

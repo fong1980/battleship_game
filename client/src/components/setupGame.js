@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { setupMyBoard } from "../actions/setupGame";
+import { setupBoard } from "../actions/setupGame";
 
 import {
   // shipsEnemyBoard,
@@ -23,7 +23,7 @@ class SetupGame extends PureComponent {
 
   handleClick(initalstateMyBoard) {
     console.log("esaf");
-    this.props.setupMyBoard(initalstateMyBoard);
+    this.props.setupBoard(initalstateMyBoard);
   }
 
   render() {
@@ -45,5 +45,7 @@ class SetupGame extends PureComponent {
 const mapStateToProps = state => ({});
 export default connect(
   mapStateToProps,
-  { setupMyBoard }
+  {
+    setupBoard
+  }
 )(SetupGame);
