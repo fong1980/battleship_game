@@ -24,12 +24,13 @@ export default class gameController {
   async editStudent(@Param("id") id: number, @Body() update: Partial<Game>) {
     const game = await Game.findOne(id);
     if (!game) throw new NotFoundError("put Student doesn't exist");
+    console.log("test");
 
-    return Game.merge(game, update).save();
+    return "Game.merge(game, update).save()";
   }
 }
 
-//http put :4000/game/1 ships="henk"
+//http put :4000/game/1 ships=[[null,1,null],[null,1,null],[null,1,null]]
 
 // @Put("/students/:id")
 // // @HttpCode(200)
