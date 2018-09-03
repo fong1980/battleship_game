@@ -4,42 +4,86 @@ import { Link } from "react-router-dom";
 
 import { setupBoard } from "../actions/setupGame";
 
-import {
-  // shipsEnemyBoard,
-  initalstateMyBoard,
-  initalstateEnemyBoard,
-  myShips
-} from "../logicConstants/logicConstants";
+import { myShips } from "../logicConstants/logicConstants";
 
 // import "./game.css";
 
 class SetupGame extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      myBoard: initalstateMyBoard,
-      EnemyBoard: initalstateEnemyBoard
-    };
+    this.state = {};
+
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleClick(myShips) {
-    console.log(myShips);
-
-    this.props.setupBoard(myShips);
+  handleInputChange(event) {
+    this.setState({
+      [event.target.name]: [event.target.value]
+    });
   }
-
   render() {
     return (
-      <div className="">
-        setup game <br />
-        {/* {myShips} */}
+      <form>
+        <label>
+          <p> Chose direction </p>
+          <input
+            name="directions"
+            type="radio"
+            value="H"
+            onChange={this.handleInputChange}
+          />
+          horizontal
+          <input
+            name="directions/"
+            type="radio"
+            value="V"
+            onChange={this.handleInputChange}
+          />
+          vertical
+        </label>
+
+        <label>
+          <p> Chose Ships </p>
+          <input
+            name="typeShips/field"
+            type="radio"
+            value="V"
+            onChange={this.handleInputChange}
+          />
+          Vliegdekschips
+          <br />
+          <input
+            name="typeShips/field"
+            type="radio"
+            value="S"
+            field="test"
+            onChange={this.handleInputChange}
+          />
+          Slagschip <br />
+          <input
+            name="typeShips/field"
+            type="radio"
+            value="K"
+            onChange={this.handleInputChange}
+          />
+          Kruiser <br />
+          <input
+            name="typeShips/field"
+            type="radio"
+            value="O"
+            onChange={this.handleInputChange}
+          />
+          Onderzeeër <br />
+          <input
+            name="typeShips/field"
+            type="radio"
+            value="M"
+            onChange={this.handleInputChange}
+          />
+          Mijnenveger <br />
+        </label>
         <br />
-        <br />
-        <br />
-        <Link to={`/game`} onClick={() => this.handleClick(myShips)}>
-          <button>go to game</button>
-        </Link>
-      </div>
+      </form>
     );
   }
 }
@@ -51,3 +95,11 @@ export default connect(
     setupBoard
   }
 )(SetupGame);
+
+// handleClick(myShips) {
+//   this.props.setupBoard(myShips);
+// }
+
+// <Link to={`/game`} onClick={() => this.handleClick(myShips)}>
+// <button>go to game</button>
+// </Link>

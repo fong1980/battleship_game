@@ -42,16 +42,14 @@ export const SETUP_BOARD = "SETUP_BOARD";
 // };
 
 export const setupBoard = setupGame => (dispatch, getState) => {
-  const a = `ships=${setupGame}`; //waarom update die het niet?
-  console.log("is gezien?");
-  request
-    .put(`${baseUrl}/placeShips/1`)
-    .send(a)
-    .then(response =>
-      dispatch({
-        type: SETUP_BOARD,
-        payload: response.body
-      })
-    )
-    .catch(err => alert(err));
+  // request
+  //   .put(`${baseUrl}/placeShips/1`)
+  //   .send(a)
+  //   .then(response =>
+  //     dispatch({
+  //       type: SETUP_BOARD,
+  //       payload: response.body
+  //     })
+  //   )
+  //   .catch(err => alert(err));
 };
