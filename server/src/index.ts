@@ -1,23 +1,23 @@
 import "reflect-metadata";
 import { Action, BadRequestError, useKoaServer } from "routing-controllers";
 import setupDb from "./db";
-import UserController from "./users/controller";
-import LoginController from "./logins/controller";
+// import UserController from "./users/controller";
+// import LoginController from "./logins/controller";
 //stuff my stuff
-import batchsController from "./batchs/controller";
-import studentController from "./students/controller";
-import evaluationsController from "./evaluations/controller";
+// import batchsController from "./batchs/controller";
+// import studentController from "./students/controller";
+// import evaluationsController from "./evaluations/controller";
 import gameController from "./games/controller";
 
 //end my stuff
 
 import { verify } from "./jwt";
-import User from "./users/entity";
+// import User from "./users/entity";
 import * as Koa from "koa";
 import { Server } from "http";
 import * as IO from "socket.io";
-import * as socketIoJwtAuth from "socketio-jwt-auth";
-import { secret } from "./jwt";
+// import * as socketIoJwtAuth from "socketio-jwt-auth";
+// import { secret } from "./jwt";
 
 const app = new Koa();
 const server = new Server(app.callback());
@@ -26,14 +26,7 @@ const port = process.env.PORT || 4000;
 
 useKoaServer(app, {
   cors: true,
-  controllers: [
-    UserController,
-    LoginController,
-    batchsController,
-    studentController,
-    evaluationsController,
-    gameController
-  ], //GameController verwijderd
+  controllers: [gameController], //GameController verwijderd
   authorizationChecker: (action: Action) => {
     const header: string = action.request.headers.authorization;
     if (header && header.startsWith("Bearer ")) {
@@ -47,37 +40,37 @@ useKoaServer(app, {
     }
 
     return false;
-  },
-  currentUserChecker: async (action: Action) => {
-    const header: string = action.request.headers.authorization;
-    if (header && header.startsWith("Bearer ")) {
-      const [, token] = header.split(" ");
-
-      if (token) {
-        const { id } = verify(token);
-        return User.findOne(id);
-      }
-    }
-    return undefined;
   }
+  // currentUserChecker: async (action: Action) => {
+  //   const header: string = action.request.headers.authorization;
+  //   if (header && header.startsWith("Bearer ")) {
+  //     const [, token] = header.split(" ");
+
+  //     if (token) {
+  //       const { id } = verify(token);
+  //       return User.findOne(id);
+  //     }
+  //   }
+  //   return undefined;
+  // }
 });
 
-io.use(
-  socketIoJwtAuth.authenticate({ secret }, async (payload, done) => {
-    const user = await User.findOne(payload.id);
-    if (user) done(null, user);
-    else done(null, false, `Invalid JWT user ID`);
-  })
-);
+// io.use(
+//   socketIoJwtAuth.authenticate({ secret }, async (payload, done) => {
+//     const user = await User.findOne(payload.id);
+//     if (user) done(null, user);
+//     else done(null, false, `Invalid JWT user ID`);
+//   })
+// );
 
-io.on("connect", socket => {
-  const name = socket.request.user.firstName;
-  console.log(`User ${name} just connected`);
+// io.on("connect", socket => {
+//   const name = socket.request.user.firstName;
+//   console.log(`User ${name} just connected`);
 
-  socket.on("disconnect", () => {
-    console.log(`User ${name} just disconnected`);
-  });
-});
+//   socket.on("disconnect", () => {
+//     console.log(`User ${name} just disconnected`);
+//   });
+// });
 
 setupDb()
   .then(_ => {

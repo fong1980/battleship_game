@@ -60,7 +60,6 @@ export const initalStatemyShips = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
-//for backends
 export const baseUrl = "http://localhost:4000";
 
 export const calcShipPositionInForState = (
@@ -97,7 +96,7 @@ export const checkPutAllShip = myShipBoard => {
     })
   );
   if (count > 16) {
-    alert("All ships already set");
+    alert("All ships already set, press Start Game to continue");
     return false;
   }
   return true;
@@ -112,11 +111,11 @@ export const CheckOutOfBorder = (startpoint, direction, typeShip) => {
   typeShip == "M" ? (fieldShipNeed = 2) : "";
 
   let length = 0;
-  if (direction == "X") {
-    length = startpoint[0] + fieldShipNeed;
-  } else {
-    length = startpoint[1] + fieldShipNeed;
-  }
+
+  direction == "x"
+    ? (length = startpoint[0] + fieldShipNeed)
+    : (length = startpoint[1] + fieldShipNeed);
+
   if (length > 12) {
     alert("Placement out of the boarder");
     return false;
@@ -128,16 +127,46 @@ export const checkShipAllreadyPut = (myShipBoard, typeShip) => {
   let exist = 0;
   myShipBoard.map((x, i) =>
     x.map((y, i) => {
-      // console.log(y, typeShip, "adadfadf");
       if (y == typeShip) {
         exist = true;
       }
     })
   );
-  console.log(exist);
+
   if (exist) {
-    alert("All ships already set");
-    return false;
+    alert("This ship is already at board");
+    return true;
   }
-  return true;
+};
+
+export const checkCrossShip = (
+  myShipBoard,
+  startpoint,
+  direction,
+  typeShip
+) => {
+  let fieldShipNeed = 0;
+
+  typeShip == "V" ? (fieldShipNeed = 5) : "";
+  typeShip == "S" ? (fieldShipNeed = 4) : "";
+  typeShip == "K" ? (fieldShipNeed = 3) : "";
+  typeShip == "O" ? (fieldShipNeed = 3) : "";
+  typeShip == "M" ? (fieldShipNeed = 2) : "";
+  let somethingInTheWay = null;
+  let i = 0;
+  for (i = 0; i < fieldShipNeed; i++) {
+    if (direction == "X") {
+      if (myShipBoard[startpoint[1]][startpoint[0] + i] !== 0) {
+        somethingInTheWay = true;
+      }
+    } else {
+      if (myShipBoard[startpoint[1] + i][startpoint[0]] !== 0) {
+        somethingInTheWay = true;
+      }
+    }
+  }
+  if (somethingInTheWay) {
+    alert("ships cannot cross eachother");
+    return true;
+  }
 };

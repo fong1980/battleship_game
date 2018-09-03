@@ -1,6 +1,6 @@
 //..batchs/entity.ts
 
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 import { BaseEntity } from "typeorm/repository/BaseEntity";
 
 @Entity()

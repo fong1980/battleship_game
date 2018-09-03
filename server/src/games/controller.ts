@@ -1,8 +1,8 @@
 import {
   JsonController,
   Get,
-  Post,
-  HttpCode,
+  // Post,
+  // HttpCode,
   Body,
   Param,
   NotFoundError,
@@ -45,30 +45,25 @@ export default class gameController {
   // http get :4000/games
 
   @Put("/placeShips/:id")
-  async updatePage( 
-  @Param("id") id: number,
-  @Body() update: Partial<Game>
-  ) {
-  
-  const game = await Game.findOne(id)
-  if (!game) throw new NotFoundError('No game id find')
-  // if (!game)  Game.findOne(id).save();
-console.log(update,'update')
+  async updatePage(@Param("id") id: number, @Body() update: Partial<Game>) {
+    const game = await Game.findOne(id);
+    if (!game) throw new NotFoundError("No game id find");
+    // if (!game)  Game.findOne(id).save();
+    console.log(update, "update");
 
-  Game.merge(game, update).save()
-  const ALLgame = await Game.find();
+    Game.merge(game, update).save();
+    const ALLgame = await Game.find();
 
-
-  return ALLgame
+    return ALLgame;
   }
   // http put :4000/placeShips/1 ships="newname"
+}
 
-
-  //----------post proberen---------
-  // @Post("/placeShips")
-  // @HttpCode(201)
-  // async newbatch(@Body() game: Game) {
-  //   return game.save();
-  // }
+//----------post proberen---------
+// @Post("/placeShips")
+// @HttpCode(201)
+// async newbatch(@Body() game: Game) {
+//   return game.save();
+// }
 
 //http Post :4000/placeShips ships="henksadfa"

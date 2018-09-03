@@ -10,7 +10,8 @@ import {
   calcShipPositionInForState,
   checkPutAllShip,
   CheckOutOfBorder,
-  checkShipAllreadyPut
+  checkShipAllreadyPut,
+  checkCrossShip
 } from "../logicConstants/logicConstants";
 import "./setupGame.css";
 
@@ -23,22 +24,26 @@ class SetupGame extends PureComponent {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    // this.PutShip = this.PutShip.bind(this);
+    this.buttonHandleClick = this.buttonHandleClick.bind(this);
+  }
+
+  buttonHandleClick() {
+    setupBoard("test");
   }
   handleClick(myShipBoard, startpoint, direction, typeShip) {
     if (!checkPutAllShip(myShipBoard)) return;
     if (!CheckOutOfBorder(startpoint, direction, typeShip)) return;
-    if (checkShipAllreadyPut(myShipBoard, typeShip))
-      // checkCrossShip();
+    if (checkShipAllreadyPut(myShipBoard, typeShip)) return;
+    if (checkCrossShip(myShipBoard, startpoint, direction, typeShip)) return;
 
-      this.setState({
-        shipsMyBoard: calcShipPositionInForState(
-          myShipBoard,
-          startpoint,
-          direction,
-          typeShip
-        )
-      });
+    this.setState({
+      shipsMyBoard: calcShipPositionInForState(
+        myShipBoard,
+        startpoint,
+        direction,
+        typeShip
+      )
+    });
 
     let a = 0;
     this.state.zomaarOmTeVernieuwen == 0 ? (a = 1) : (a = 0);
@@ -89,7 +94,6 @@ class SetupGame extends PureComponent {
                 name="typeShip"
                 type="radio"
                 value="S"
-                field="test"
                 onChange={this.handleInputChange}
               />
               Slagschip (4)
@@ -129,6 +133,12 @@ class SetupGame extends PureComponent {
               <div className="rows">
                 {row.map((colum, indexX) => {
                   const ClicktCoordinate = [indexX, indexY];
+                  let cellValue = 0;
+                  if (this.state.shipsMyBoard[indexY][indexX] == 0) {
+                    cellValue = "";
+                  } else {
+                    cellValue = this.state.shipsMyBoard[indexY][indexX];
+                  }
 
                   return (
                     <div
@@ -143,7 +153,7 @@ class SetupGame extends PureComponent {
                         );
                       }}
                     >
-                      {this.state.shipsMyBoard[indexY][indexX]}
+                      {cellValue}
                     </div>
                   );
                 })}
@@ -151,9 +161,9 @@ class SetupGame extends PureComponent {
             );
           })}
           {/* //---------end make a function 1------------- */}
-          <Link to={`/game`} onClick={() => this.handleClick(myShips)}>
-            // <button>go to game</button>
-            //{" "}
+          <Link to={`/game`} onClick={() => this.buttonHandleClick(myShips)}>
+            <br />
+            <button>start game</button>
           </Link>
         </div>
         //{" "}
@@ -169,11 +179,3 @@ export default connect(
     setupBoard
   }
 )(SetupGame);
-
-// handleClick(myShips) {
-//   this.props.setupBoard(myShips);
-// }
-
-// <Link to={`/game`} onClick={() => this.handleClick(myShips)}>
-// <button>go to game</button>
-// </Link>
