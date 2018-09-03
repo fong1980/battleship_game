@@ -17,7 +17,7 @@ export const SETUP_BOARD = "SETUP_BOARD";
 // export const setupBoard = () => (dispatch, getState) => {
 //   console.log("ben ik er now wel of niet?");
 //   request
-//     // .get(`${baseUrl}/games`)
+//     // .get(`${baseUrl}/setupGames`)
 //     .get(`${baseUrl}//batchs`)
 //     .then(response =>
 //       dispatch({
@@ -28,9 +28,25 @@ export const SETUP_BOARD = "SETUP_BOARD";
 //     .catch(err => alert(err));
 // };
 
-export const setupBoard = () => (dispatch, getState) => {
+// --------------------->dit werkt.
+// export const setupBoard = () => (dispatch, getState) => {
+//   request
+//     .get(`${baseUrl}/setupGames`)
+//     .then(response =>
+//       dispatch({
+//         type: SETUP_BOARD,
+//         payload: response.body
+//       })
+//     )
+//     .catch(err => alert(err));
+// };
+
+export const setupBoard = setupGame => (dispatch, getState) => {
+  const a = `ships=${setupGame}`; //waarom update die het niet?
+  console.log("is gezien?");
   request
-    .get(`${baseUrl}/batchs`)
+    .put(`${baseUrl}/placeShips/1`)
+    .send(a)
     .then(response =>
       dispatch({
         type: SETUP_BOARD,

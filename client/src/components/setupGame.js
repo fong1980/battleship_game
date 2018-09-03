@@ -7,7 +7,8 @@ import { setupBoard } from "../actions/setupGame";
 import {
   // shipsEnemyBoard,
   initalstateMyBoard,
-  initalstateEnemyBoard
+  initalstateEnemyBoard,
+  myShips
 } from "../logicConstants/logicConstants";
 
 // import "./game.css";
@@ -21,20 +22,21 @@ class SetupGame extends PureComponent {
     };
   }
 
-  handleClick(initalstateMyBoard) {
-    console.log("esaf");
-    this.props.setupBoard(initalstateMyBoard);
+  handleClick(myShips) {
+    console.log(myShips);
+
+    this.props.setupBoard(myShips);
   }
 
   render() {
     return (
       <div className="">
         setup game <br />
-        {initalstateMyBoard}
+        {/* {myShips} */}
         <br />
         <br />
         <br />
-        <Link to={`/game`} onClick={() => this.handleClick(initalstateMyBoard)}>
+        <Link to={`/game`} onClick={() => this.handleClick(myShips)}>
           <button>go to game</button>
         </Link>
       </div>
