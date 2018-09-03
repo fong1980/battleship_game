@@ -15,13 +15,13 @@ import { verify } from "./jwt";
 // import User from "./users/entity";
 import * as Koa from "koa";
 import { Server } from "http";
-import * as IO from "socket.io";
+// import * as IO from "socket.io";
 // import * as socketIoJwtAuth from "socketio-jwt-auth";
 // import { secret } from "./jwt";
 
 const app = new Koa();
 const server = new Server(app.callback());
-export const io = IO(server);
+// export const io = IO(server);
 const port = process.env.PORT || 4000;
 
 useKoaServer(app, {
